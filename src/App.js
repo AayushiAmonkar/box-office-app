@@ -1,13 +1,12 @@
 import React from "react";
 import { Switch, Route } from "react-router";
-import Navs from "./components/Navs";
+
 import Home from "./pages/Home";
 import About from "./pages/About";
 
 const App = () => {
   return (
     <div>
-      <Navs />
       <Switch>
         <Route exact path="/">
           <Home />
