@@ -1,5 +1,6 @@
 import React from "react";
 import ActorCard from "./ActorCard";
+
 import IMAGE_NOT_FOUND from "../../images/IMAGE_NOT_FOUND.jpg";
 import { FlexGrid } from "../styled";
 

@@ -1,6 +1,6 @@
 import styled from "styled-components";
+
 import { SearchCard } from "../styled";
-// ShowCard.styled.js -> Extended card styles
 
 export const StyledShowCard = styled(SearchCard)`
   .btns {

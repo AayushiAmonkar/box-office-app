@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-// Cast.styled.js
 export const CastList = styled.div`
   display: flex;
   flex-wrap: wrap;

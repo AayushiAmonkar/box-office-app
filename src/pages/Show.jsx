@@ -1,49 +1,42 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useEffect, useReducer } from "react";
-import { useParams } from "react-router";
-import ShowMainData from "../components/show/ShowMainData";
+import { useParams } from "react-router-dom";
 import { apiGet } from "../misc/Config";
+import ShowMainData from "../components/show/ShowMainData";
 import Details from "../components/show/Details";
 import Seasons from "../components/show/Seasons";
 import Cast from "../components/show/Cast";
-import { InfoBlock, ShowPageWrapper } from "./Show.styled";
+import { ShowPageWrapper, InfoBlock } from "./Show.styled";
+
+const reducer = (prevState, action) => {
+  switch (action.type) {
+    case "FETCH_SUCCESS": {
+      return { isLoading: false, error: null, show: action.show };
+    }
+
+    case "FETCH_FAILED": {
+      return { ...prevState, isLoading: false, error: action.error };
+    }
+
+    default:
+      return prevState;
+  }
+};
+
+const initialState = {
+  show: null,
+  isLoading: true,
+  error: null,
+};
 
 const Show = () => {
   const { id } = useParams();
 
-  // const [show, setShow] = useState(null);
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [error, setError] = useState(null);
-
-  const reducer = (prevState, action) => {
-    switch (action.type) {
-      case "FETCH_SUCCESS": {
-        return {
-          ...prevState,
-          isLoading: false,
-          error: null,
-          show: action.show,
-        };
-      }
-
-      case "FETCH_FAILED": {
-        return { ...prevState, isLoading: false, error: action.error };
-      }
-
-      default:
-        return prevState;
-    }
-  };
-  const initialState = {
-    show: null,
-    isLoading: true,
-    error: null,
-  };
   const [{ show, isLoading, error }, dispatch] = useReducer(
     reducer,
     initialState
   );
 
-  // console.log(show);
   useEffect(() => {
     let isMounted = true;
 
@@ -51,16 +44,11 @@ const Show = () => {
       .then((results) => {
         if (isMounted) {
           dispatch({ type: "FETCH_SUCCESS", show: results });
-          // setShow(results);
-          // setIsLoading(false);
         }
       })
       .catch((err) => {
         if (isMounted) {
           dispatch({ type: "FETCH_FAILED", error: err.message });
-
-          // setError(err.message);
-          // setIsLoading(false);
         }
       });
 
@@ -68,16 +56,15 @@ const Show = () => {
       isMounted = false;
     };
   }, [id]);
-  // console.log(show);
-  // console.log();
-  // console.log(`pareams:`, params);
-  //   if (isLoading) {
-  //     return <div>Data is being loaded....</div>;
-  //   }
 
-  //   if (error) {
-  //     return <div>Error Occured ...{error}</div>;
-  //   }
+  if (isLoading) {
+    return <div>Data is being loaded</div>;
+  }
+
+  if (error) {
+    return <div>Error occured: {error}</div>;
+  }
+
   return (
     <ShowPageWrapper>
       <ShowMainData
@@ -87,6 +74,7 @@ const Show = () => {
         summary={show.summary}
         tags={show.genres}
       />
+
       <InfoBlock>
         <h2>Details</h2>
         <Details
