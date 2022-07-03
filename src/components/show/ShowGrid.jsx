@@ -4,28 +4,26 @@ import ShowCard from "./ShowCard";
 
 import { FlexGrid } from "../styled";
 
-import IMAGE_NOT_FOUND from "../../images/IMAGE_NOT_FOUND.jpg";
+import IMAGE_NOT_FOUND from "../../images/not-found.png";
 import { useShows } from "../../misc/custom-hooks";
 
 const ShowGrid = ({ data }) => {
   const [starredShows, dispatchStarred] = useShows();
 
+  const onStarClick = useCallback(
+    (showId, isStarred) => {
+      if (isStarred) {
+        dispatchStarred({ type: "REMOVE", showId });
+      } else {
+        dispatchStarred({ type: "ADD", showId });
+      }
+    },
+    [dispatchStarred]
+  );
+
   return (
     <FlexGrid>
       {data.map(({ show }) => {
-        const isStarred = starredShows.includes(show.id);
-
-        const onStarClick = useCallback(
-          (showId, isStarred) => {
-            if (isStarred) {
-              dispatchStarred({ type: "REMOVE", showId });
-            } else {
-              dispatchStarred({ type: "ADD", showId });
-            }
-          },
-          [isStarred, show.id]
-        );
-
         return (
           <ShowCard
             key={show.id}

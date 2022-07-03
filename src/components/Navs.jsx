@@ -1,5 +1,6 @@
 import React, { memo } from "react";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
+
 import { NavList, LinkStyled } from "./Navs.styled";
 
 const LINKS = [
@@ -9,8 +10,6 @@ const LINKS = [
 
 const Navs = () => {
   const location = useLocation();
-
-  // console.log(location);
 
   return (
     <div>

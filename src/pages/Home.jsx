@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import MainPageLayout from "../components/MainPageLayout";
-import { apiGet } from "../misc/Config";
+import { apiGet } from "../misc/config";
 import ShowGrid from "../components/show/ShowGrid";
 import ActorGrid from "../components/actor/ActorGrid";
 import { useLastQuery } from "../misc/custom-hooks";
@@ -56,8 +56,6 @@ const Home = () => {
     setSearchOption(ev.target.value);
   }, []);
 
-  // useWhyDidYouUpdate("home", { onInputChange, onKeyDown });
-
   return (
     <MainPageLayout>
       <SearchInput
@@ -69,21 +67,25 @@ const Home = () => {
       />
 
       <RadioInputsWrapper>
-        <CustomRadio
-          id="shows-search"
-          value="shows"
-          checked={isShowsSearch}
-          onChange={onRadioChange}
-          label="Shows"
-        />
+        <div>
+          <CustomRadio
+            label="Shows"
+            id="shows-search"
+            value="shows"
+            checked={isShowsSearch}
+            onChange={onRadioChange}
+          />
+        </div>
 
-        <CustomRadio
-          label="Actors"
-          id="actors-search"
-          value="people"
-          checked={!isShowsSearch}
-          onChange={onRadioChange}
-        />
+        <div>
+          <CustomRadio
+            label="Actors"
+            id="actors-search"
+            value="people"
+            checked={!isShowsSearch}
+            onChange={onRadioChange}
+          />
+        </div>
       </RadioInputsWrapper>
 
       <SearchButtonWrapper>

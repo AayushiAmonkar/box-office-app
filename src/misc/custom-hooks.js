@@ -1,5 +1,6 @@
 import { useReducer, useEffect, useState, useRef, useCallback } from "react";
-import { apiGet } from "./Config.jsx";
+import { apiGet } from "./config";
+
 function showsReducer(prevState, action) {
   switch (action.type) {
     case "ADD": {
@@ -47,6 +48,7 @@ export function useLastQuery(key = "lastQuery") {
     },
     [key]
   );
+
   return [input, setPersistedInput];
 }
 
@@ -64,6 +66,7 @@ const reducer = (prevState, action) => {
       return prevState;
   }
 };
+
 export function useShow(showId) {
   const [state, dispatch] = useReducer(reducer, {
     show: null,
@@ -98,6 +101,7 @@ export function useWhyDidYouUpdate(name, props) {
   // Get a mutable ref object where we can store props ...
   // ... for comparison next time this hook runs.
   const previousProps = useRef();
+
   useEffect(() => {
     if (previousProps.current) {
       // Get all keys from previous and current props
@@ -115,11 +119,14 @@ export function useWhyDidYouUpdate(name, props) {
           };
         }
       });
+
       // If changesObj not empty then output to console
       if (Object.keys(changesObj).length) {
+        // eslint-disable-next-line no-console
         console.log("[why-did-you-update]", name, changesObj);
       }
     }
+
     // Finally update previousProps with current props for next hook call
     previousProps.current = props;
   });

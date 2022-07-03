@@ -10,13 +10,11 @@ const RadioWrapper = styled.label`
   user-select: none;
   font-weight: 700;
   line-height: 1.65;
-
   input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
   }
-
   span {
     position: absolute;
     top: 0;
@@ -27,22 +25,18 @@ const RadioWrapper = styled.label`
     border: 2px solid ${({ theme }) => theme.mainColors.blue};
     border-radius: 50%;
   }
-
   input:checked ~ span {
     background-color: #fff;
     border: 2px solid ${({ theme }) => theme.mainColors.blue};
   }
-
   span:after {
     content: "";
     position: absolute;
     display: none;
   }
-
   input:checked ~ span:after {
     display: block;
   }
-
   span:after {
     top: 4px;
     left: 4px;
@@ -55,13 +49,11 @@ const RadioWrapper = styled.label`
 
 const CustomRadio = ({ label, ...restProps }) => {
   return (
-    <div>
-      <RadioWrapper htmlFor={restProps.id}>
-        {label}
-        <input {...restProps} type="radio" />
-        <span></span>
-      </RadioWrapper>
-    </div>
+    <RadioWrapper htmlFor={restProps.id}>
+      {label}
+      <input {...restProps} type="radio" />
+      <span />
+    </RadioWrapper>
   );
 };
 
